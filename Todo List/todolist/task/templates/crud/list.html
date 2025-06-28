@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block headblock %}
+<style>
+    li:hover {
+        background-color: #f8f9fa;
+    }
+
+    .navbar-nav .nav-item:hover {
+        background-color: rgb(181, 77, 77); /* light gray or any */
+        border-radius: 5px;
+    }
+
+
+</style>
+  
+{% endblock %}
+
+{% block search-block %}
+<form class="d-flex" role="search">
+    <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success me-2" type="submit">Search</button>
+</form>
+
+{% endblock %}
+
+
+
+{% block body_block %}
+
+<div class="mt-5">
+    <div class="mb-4">
+        {% if todos %}
+        <h2 class="fw-bold text-primary">Welcome back, {{user.username|upper}}</h2>
+
+        {% else  %}
+        <h2 class="fw-bold text-primary">Welcome {{user.username|upper}}</h2>
+
+        {% endif %}
+        <hr class="mx-auto">
+    </div>
+    
+
+{% if todos %}
+{% if queried %}
+        <p class="text-muted">Here is a list of your current tasks based on your search</p>
+ {% else %}
+
+    <p class="text-muted">Here is a list of your todo</p>
+
+{% endif %}
+
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Task</th>
+                <th scope="col">Status</th>
+                <th scope="col">Due Date</th>
+            </tr>
+        </thead>
+        <tbody >
+            
+
+
+            {% for todo in todos %}
+            <tr class="clickable-row" data-href="{% url 'task:detail' todo.id %}">
+            
+                <td>{{ forloop.counter }}</td>
+                <td>{{ todo.title }}</td>
+                <td>
+                    {% if todo.completed %}
+                        <span class="badge bg-success">Completed ✔️</span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark">Pending ❌</span>
+                    {% endif %}
+                </td>
+                <td>{{todo.due_date}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+
+
+    </table>
+    
+    {% if queried %}
+    <a class="btn btn-primary" href="{% url 'task:list' %}">back</a> 
+
+    {% else %}
+    <a class="btn btn-primary" href="{% url 'task:task' %}">Create Task</a> 
+
+    {% endif %}
+
+   
+                
+            
+    
+{% else %}
+
+{% if queried %}
+    <div class="p-3 mb-2 bg-secondary-subtle text-primary-emphasis">
+    <p>Search was not found</p>
+    
+    <a class="btn btn-primary" href="{% url 'task:list' %}">back</a>            
+</div>
+
+{% else %}
+
+           
+
+        <div class="p-3 mb-2 bg-secondary-subtle text-primary-emphasis">
+            <p>You have no task created yet.</p>
+            
+            <a class="btn btn-primary" href="{% url 'task:task' %}">Create Task</a>            
+        </div>
+
+{% endif %}
+
+
+</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const rows = document.querySelectorAll(".clickable-row");
+      rows.forEach(row => {
+        row.style.cursor = "pointer";
+        row.addEventListener("click", () => {
+          window.location = row.getAttribute("data-href");
+        });
+      });
+    });
+  </script>
+{% endblock %}

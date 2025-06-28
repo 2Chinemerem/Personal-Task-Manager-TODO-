@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title text-primary mb-4">Task Details</h4>
+
+      <p><strong>Username:</strong> {{ todo.user|upper }}</p>
+      <p><strong>Title:</strong> {{ todo.title }}</p>
+
+      {% if todo.description %}
+      <p><strong>Description:</strong> {{ todo.description }}</p>
+      {% endif %}
+
+      <p><strong>Date Created:</strong> {{ todo.created_at|date:"F j, Y, g:i a" }}</p>
+      <p><strong>Due Date:</strong> {{ todo.due_date }}</p>
+
+      <p>
+        <strong>Status:</strong>
+        {% if todo.completed %}
+          <span class="badge bg-success">Completed ✔️</span>
+        {% else %}
+          <span class="badge bg-warning text-dark">Pending ❌</span>
+        {% endif %}
+        
+      </p>
+    <a class="btn btn-primary" href="{% url 'task:list' %}">Back</a>
+
+      {% if not todo.completed %}
+
+      <a class="btn btn-primary" href="{% url 'task:update' todo.id %}">Edit Task</a>
+      
+      {% endif %}
+      
+      <a class="btn btn-primary" href="{% url 'task:delete' todo.id %}">Delete Task</a>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

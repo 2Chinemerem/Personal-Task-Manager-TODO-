@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<div class="p-4 bg-white rounded-3 shadow-sm border-start border-3 border-primary mt-4">
+  <div class="container py-3 px-md-4">
+
+    {% if not form.instance.pk %}
+      <h4 class="fw-bold text-primary mb-2">Schedule Task</h4>
+    {% else %}
+      <h4 class="fw-bold text-success mb-2">Update Task</h4>
+    {% endif %}
+
+    <p class="text-muted mb-3 small">Fill in the task information below.</p>
+
+    <form method="post" class="bg-light p-3 rounded">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      {% if not form.instance.pk %}
+        <input class="btn btn-primary" type="submit" value="Schedule">
+      {% else %}
+        <input class="btn btn-primary" type="submit" value="Update">
+      {% endif %}
+      <a class="btn btn-primary" href="{% url 'task:list' %}">Back</a>
+    </form>
+    
+
+  </div>
+</div>
+
+{% endblock %}

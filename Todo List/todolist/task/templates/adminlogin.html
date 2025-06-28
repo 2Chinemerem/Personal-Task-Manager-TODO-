@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<!-- <div class="p-5 mb-4 bg-warning rounded-3 shadow-sm"> -->
+
+  <div class="p-5 mb-4 rounded-3 shadow-sm" style="background-color: #e9ecef;">
+
+
+    <div class="container-fluid py-5">
+      <h2 class="display-5 fw-bold">Admin login</h2>
+      <p class="col-md-8 fs-4">
+        This login page strictly for admins!
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+
+            <input class="btn btn-primary btn-lg" type="submit" value="Login">
+        </form>
+      </p>
+        <br>
+      {% if fail %}
+      <span class="alert alert-danger">Wrong username or password</span>
+      {% endif %}
+      
+    </div>
+  </div>  
+
+
+
+{% endblock %}
+
