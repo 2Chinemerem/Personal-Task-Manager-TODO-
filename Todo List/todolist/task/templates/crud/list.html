@@ -45,9 +45,13 @@
 {% if todos %}
 {% if queried %}
         <p class="text-muted">Here is a list of your current tasks based on your search</p>
+        <p style="color:green" class="fw-semibold" >Click on the task to view its details</p>
  {% else %}
-
-    <p class="text-muted">Here is a list of your todo</p>
+    <div class="mb-3">
+        <p class="text-muted mb-1">Here is a list of your todo:</p>
+        <p style="color:green" class="fw-semibold">Click a task to view its details</p>
+      </div>
+      
 
 {% endif %}
 

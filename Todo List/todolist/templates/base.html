@@ -59,12 +59,12 @@
               
             {% else %}          
 
-              {% block search-block %}
+            {% block search-block %}
               
-              {% endblock %}
+            {% endblock %}
 
               
-            
+            <br>
             <a href="{% url 'task:logout' %}" class="btn btn-success">Logout</a>
 
             {% endif %}
@@ -74,6 +74,7 @@
           </div>
         </div>
       </nav>
+      
 
       <div class="container">
         {% block body_block%}

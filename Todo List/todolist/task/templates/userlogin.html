@@ -14,7 +14,10 @@
       </p>
       <br>
       {% if fail %}
-      <span class="alert alert-danger">Wrong username or password</span>
+      <div class="alert alert-danger d-inline-block px-3 py-2" role="alert">
+        Wrong username or password
+      </div>
+      
       {% endif %}
     <hr>
     <a href="{% url 'task:register' %}">Register</a>
